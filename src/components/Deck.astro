@@ -1,12 +1,15 @@
 ---
 import { db, Cards, eq, sql } from 'astro:db';
+import { ViewTransitions } from 'astro:transitions';
+import { fade } from 'astro:transitions';
 
 const cards = await db.select().from(Cards).orderBy(sql`random()`).limit(3).where(
     eq(Cards.selected, true)
 );
 ---
-
-<div class="grid gap-4 grid-cols-3">
+<ViewTransitions />
+<div class="wrapper relative">
+<div transition:animate={fade({ duration: '0.8s' })} class="deck absolute inset-x-0 top-0 grid gap-4 grid-cols-3 mx-auto z-40">
 	{cards.map(({ name, url }) => (
 		<div class="card">
 			<a href={url}>
@@ -18,11 +21,21 @@ const cards = await db.select().from(Cards).orderBy(sql`random()`).limit(3).wher
 			/>
 			</a>
 		</div>
-		))}
-  </div>
+	))}
+</div>
+<div class="placeholder absolute inset-x-0 top-0 z-0 deck grid gap-4 grid-cols-3 mx-auto">
+	<img class="card" src="/images/backs/Adept.webp"/>
+	<img class="card" src="/images/backs/Adept.webp"/>
+	<img class="card" src="/images/backs/Adept.webp"/>
+</div>
+</div>
 
 <style lang="scss">
-	 .card {
+	.deck {
+		max-width: 800px;
+	}
+
+	.card {
   		-webkit-transition-property: all;
   		-webkit-transition-duration: 0.3s;
   		-webkit-transition-timing-function: ease;

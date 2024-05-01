@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Nav from '../components/Nav.astro';
+import Nav_twoplayers from '../components/Nav_twoplayers.astro';
 import Deck from '../components/Deck.astro';
 import Footer from '../components/Footer.astro';
 import { ViewTransitions } from 'astro:transitions';
@@ -9,10 +9,13 @@ import { fade } from 'astro:transitions';
 
 <Layout title="🃏 genius invocation tcg deck randomizer">
 	<header>
-		<Nav></Nav>
+		<Nav_twoplayers></Nav_twoplayers>
 	</header>
 	<main>
 		<ViewTransitions />
+		<section transition:animate={fade({ duration: '0.8s' })} class="h-dvh max-h-96">
+			<Deck></Deck>
+		</section>
 		<section transition:animate={fade({ duration: '0.8s' })} class="h-dvh max-h-96">
 			<Deck></Deck>
 		</section>
