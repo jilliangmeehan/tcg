@@ -7,14 +7,16 @@ const cards = await db.select().from(Cards).orderBy(sql`random()`).limit(3).wher
 ---
 
 <div class="grid gap-4 grid-cols-3">
-	{cards.map(({ name }) => (
+	{cards.map(({ name, url }) => (
 		<div class="card">
+			<a href={url}>
 			<img
 				src={`/images/${name}.webp`}
 				decoding="async"
 				loading="lazy"
 				alt={`The ${name} TCG card from Genshin Impact`}
 			/>
+			</a>
 		</div>
 		))}
   </div>
